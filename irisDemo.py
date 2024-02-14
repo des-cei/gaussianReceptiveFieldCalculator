@@ -72,9 +72,3 @@ parameterToPlot = 0
 
 plotDataPoint(rawData, figurePath, fieldSuperposition, nInputNeurons, \
               nIntervals, elementToPlot, parameterToPlot)
-
-
-
-
-
-
