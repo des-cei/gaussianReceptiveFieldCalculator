@@ -1,4 +1,4 @@
-from gaussianFieldCalculator import *
+from libraries.gaussianFieldCalculator import *
   
 
 # ====================================================================================

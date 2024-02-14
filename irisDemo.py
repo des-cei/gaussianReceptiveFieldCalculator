@@ -1,4 +1,4 @@
-from gaussianFieldCalculator import *
+from libraries.gaussianFieldCalculator import *
 
 # ====================================================================================
 #                                     Iris Dataset
@@ -57,7 +57,7 @@ processedData = processData(rawData, variablePositions, resultPosition, resultEn
                             fieldSuperposition, nInputNeurons, nIntervals)
 
 # Save data
-saveFile = '.\\processedData\\iris.data'
+saveFile = '..\\processedData\\iris.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)

@@ -1,4 +1,4 @@
-from gaussianFieldCalculator import *
+from libraries.gaussianFieldCalculator import *
 
 # ====================================================================================
 #                             Wine Recognition Dataset
@@ -69,7 +69,7 @@ from gaussianFieldCalculator import *
 
 
 # Read data
-sourceFile = '..\\datasets\\wine\\wine.data'
+sourceFile = '../datasets/wine/wine.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 rawData = readCSVData(sourceFile, elementSeparator, parameterSeparator)
