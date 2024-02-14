@@ -69,7 +69,7 @@ from gaussianFieldCalculator import *
 
 
 # Read data
-sourceFile = 'datasets\\wine\\wine.data'
+sourceFile = '..\\datasets\\wine\\wine.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 rawData = readCSVData(sourceFile, elementSeparator, parameterSeparator)
@@ -89,13 +89,13 @@ processedData = processData(rawData, variablePositions, resultPosition, resultEn
                             fieldSuperposition, nInputNeurons, nIntervals)
 
 # Save data
-saveFile = 'processedData\\wine.data'
+saveFile = '..\\processedData\\wine.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
 
 # How to plot a random data point:
-figurePath = 'figures\\winePlot.pdf'
+figurePath = '...\\figures\\winePlot.pdf'
 fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10

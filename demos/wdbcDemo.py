@@ -47,7 +47,7 @@ from gaussianFieldCalculator import *
 
 
 # Read data
-sourceFile = 'datasets\\wdbc\\wdbc.data'
+sourceFile = '..\\datasets\\wdbc\\wdbc.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 
@@ -69,13 +69,13 @@ processedData = processData(rawData, variablePositions, resultPosition, resultEn
                             fieldSuperposition, nInputNeurons, nIntervals)
 
 # Save data
-saveFile = 'processedData\\wdbc.data'
+saveFile = '..\\processedData\\wdbc.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
 
 # How to plot a random data point:
-figurePath = 'figures\\wdbcPlot.pdf'
+figurePath = '..\\figures\\wdbcPlot.pdf'
 fieldSuperposition = 0.75 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10
