@@ -35,7 +35,7 @@ from libraries.gaussianFieldCalculator import *
 
 
 # Read data
-sourceFile = '..\\datasets\\iris\\iris.data'
+sourceFile = 'datasets\\iris\\iris.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 
@@ -57,13 +57,13 @@ processedData = processData(rawData, variablePositions, resultPosition, resultEn
                             fieldSuperposition, nInputNeurons, nIntervals)
 
 # Save data
-saveFile = '..\\processedData\\iris.data'
+saveFile = 'processedData\\iris.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
 
 # How to plot a random data point:
-figurePath = '..\\figures\\irisPlot.pdf'
+figurePath = 'figures\\irisPlot.pdf'
 fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10
