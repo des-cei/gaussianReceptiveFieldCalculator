@@ -1,4 +1,4 @@
-from libraries.gaussianFieldCalculator import *
+from libraries.gaussianReceptiveFieldCalculator import *
 
 # ====================================================================================
 #                             Wine Recognition Dataset
