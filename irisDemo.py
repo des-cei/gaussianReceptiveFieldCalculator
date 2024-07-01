@@ -35,7 +35,7 @@ from libraries.gaussianReceptiveFieldCalculator import *
 
 
 # Read data
-sourceFile = 'datasets\\iris\\iris.data'
+sourceFile = './datasets/iris/iris.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 
@@ -53,17 +53,20 @@ fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10
 
-processedData = processData(rawData, variablePositions, resultPosition, resultEncoding, \
-                            fieldSuperposition, nInputNeurons, nIntervals)
+# Example with no result interval calculation (directly write excitation)
+processedData = processData(data=rawData, 
+                            variablePositions=variablePositions, 
+                            nInputNeurons=nInputNeurons, 
+                            fieldSuperposition=fieldSuperposition)
 
 # Save data
-saveFile = 'processedData\\iris.data'
+saveFile = './processedData/iris.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
 
 # How to plot a random data point:
-figurePath = 'figures\\irisPlot.pdf'
+figurePath = './figures/irisPlot.pdf'
 fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10

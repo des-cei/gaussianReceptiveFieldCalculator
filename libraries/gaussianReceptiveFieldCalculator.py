@@ -1,6 +1,8 @@
 import numpy as np
 import math as math
 import sys
+import matplotlib
+matplotlib.use('Agg') # Correct problem with QThread in Ubuntu
 import matplotlib.pyplot as plt 
 
 # =========================================================================================================
@@ -75,8 +77,18 @@ def readCSVData(fileName, elementSeparator, parameterSeparator):
   return data
   
   
-def processData(data, variablePositions, resultPosition, resultEncoding,
-                 fieldSuperposition, nInputNeurons, nIntervals):
+def processData(
+    data, 
+    variablePositions, 
+    nInputNeurons, 
+    fieldSuperposition = 1.5, 
+    calculate_intervals = False,
+    nIntervals=0,
+    resultPosition=0,
+    resultEncoding={},
+    add_results = False,
+):
+  
   # Calculate the limit values for each parameter (To optimally distribute the Gaussian Fields)
   limitValues = findLimitValues(data, variablePositions)
 
@@ -92,25 +104,32 @@ def processData(data, variablePositions, resultPosition, resultEncoding,
     expectedValueGroups.append(expectedValueGroup)
     standardDeviations.append(standardDeviation)
 
-  # Calculate the input intervals for every parameter of every element
+
+  # Calculate the excitation and input intervals for every parameter of every elementç      
   elementsInputs = []
   for element in data:
-    elementInputs = []
+    elementInputs = np.zeros(shape=(4,4))
     for variablePos,variableIndex in enumerate(variablePositions):
       parameterExcitation = calculateExcitation(element[variableIndex], \
                 expectedValueGroups[variablePos], standardDeviations[variablePos])
-      parameterInputs = calculateInputIntervals(parameterExcitation, nIntervals)
-      elementInputs += parameterInputs
-    elementsInputs.append(elementInputs)
+      
+      if(calculate_intervals == True):
+        parameterInputs = calculateInputIntervals(parameterExcitation, nIntervals)
+      else:
+        parameterInputs = parameterExcitation
+
+      elementInputs[variableIndex] = parameterInputs
+    elementInputs = np.reshape(elementInputs,  16, order='F')
+    elementsInputs.append(elementInputs.tolist())
 
   # Add the result encoding
-  for i in range(len(elementsInputs)):
-    result = data[i][resultPosition]
-    resultEncoded = resultEncoding[result]
-    elementsInputs[i].append(resultEncoded)
-    
-  return elementsInputs
+  if(add_results == True):
+    for i in range(len(elementsInputs)):
+      result = data[i][resultPosition]
+      resultEncoded = resultEncoding[result]
+      elementsInputs[i].append(resultEncoded)
 
+  return elementsInputs
 
 
 def writeCSVData(data, fileName, elementSeparator, parameterSeparator):
