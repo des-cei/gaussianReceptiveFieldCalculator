@@ -2,6 +2,7 @@ import numpy as np
 import math as math
 import sys
 import matplotlib
+import random
 matplotlib.use('Agg') # Correct problem with QThread in Ubuntu
 import matplotlib.pyplot as plt 
 
@@ -132,8 +133,12 @@ def processData(
   return elementsInputs
 
 
-def writeCSVData(data, fileName, elementSeparator, parameterSeparator):
+def writeCSVData(data, fileName, elementSeparator, parameterSeparator, rearrange=False):
   f = open(fileName, "w")
+
+  if(rearrange):
+    random.shuffle(data)
+  
   for element in data:
     dataString = parameterSeparator.join(str(x) for x in element)
     if element != data[-1]:

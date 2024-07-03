@@ -45,9 +45,9 @@ rawData = readCSVData(sourceFile, elementSeparator, parameterSeparator)
 variablePositions = [0, 1, 2, 3]
 resultPosition = 4
 resultEncoding = {
-  "Iris-setosa": "11",
-  "Iris-versicolor": "16",
-  "Iris-virginica": "21"
+  "Iris-setosa": "0",
+  "Iris-versicolor": "1",
+  "Iris-virginica": "2"
 }
 fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
@@ -57,13 +57,17 @@ nIntervals = 10
 processedData = processData(data=rawData, 
                             variablePositions=variablePositions, 
                             nInputNeurons=nInputNeurons, 
-                            fieldSuperposition=fieldSuperposition)
+                            fieldSuperposition=fieldSuperposition,
+                            add_results=True,
+                            resultEncoding=resultEncoding,
+                            resultPosition=resultPosition,
+                            )
 
 # Save data
 saveFile = './processedData/iris.data'
 elementSeparator = '\n'
 parameterSeparator = ','
-writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
+writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator, rearrange=True)
 
 # How to plot a random data point:
 figurePath = './figures/irisPlot.pdf'
