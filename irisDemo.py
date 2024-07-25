@@ -178,9 +178,9 @@ if(train_LIF_flag):
   irisDataset_train =  CustomDataset(data_path=saveFile, train=True)
   irisDataset_test =  CustomDataset(data_path=saveFile, train=False)
 
-  # Initialize data loaders
-  irisDataloader_train = DataLoader(irisDataset_train, batch_size=batch_size)
-  irisDataloader_test = DataLoader(irisDataset_test, batch_size=batch_size)
+  # Initialize data loaders  (drop last avoids having a last batch with fewer elements)
+  irisDataloader_train = DataLoader(irisDataset_train, batch_size=batch_size, drop_last=True)
+  irisDataloader_test = DataLoader(irisDataset_test, batch_size=batch_size, drop_last=True)
 
   # Initialize network
   if(verbose_flag):
@@ -276,8 +276,8 @@ if(test_Izhi_flag):
      print('Reading data: ', saveFile)
   irisDataset_test =  CustomDataset(data_path=saveFile, train=False)
 
-  # Initialize data loaders
-  irisDataloader_test = DataLoader(irisDataset_test, batch_size=batch_size)
+  # Initialize data loaders  (drop last avoids having a last batch with fewer elements)
+  irisDataloader_test = DataLoader(irisDataset_test, batch_size=batch_size, drop_last=True)
 
   if(verbose_flag):
      print('Initializing Izhikevich network')

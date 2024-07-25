@@ -189,7 +189,7 @@ if(train_LIF_flag):
   irisDataset_train =  CustomDataset(data_path=saveFile, train=True)
   irisDataset_test =  CustomDataset(data_path=saveFile, train=False)
 
-  # Initialize data loaders (drop last avoids having 1 last batch with fewer elements)
+  # Initialize data loaders (drop last avoids having a last batch with fewer elements)
   irisDataloader_train = DataLoader(irisDataset_train, batch_size=batch_size, drop_last=True)
   irisDataloader_test = DataLoader(irisDataset_test, batch_size=batch_size, drop_last=True)
 
@@ -287,7 +287,7 @@ if(test_Izhi_flag):
      print('Reading data: ', saveFile)
   irisDataset_test =  CustomDataset(data_path=saveFile, train=False)
 
-  # Initialize data loaders (drop last avoids having 1 last batch with fewer elements)
+  # Initialize data loaders  (drop last avoids having a last batch with fewer elements)
   irisDataloader_test = DataLoader(irisDataset_test, batch_size=batch_size, drop_last=True)
 
   if(verbose_flag):
