@@ -52,6 +52,7 @@ class NetLIF(nn.Module):
     def __init__(self, num_inputs, num_hidden, num_outputs, batch_size, num_steps):
         super(NetLIF, self).__init__()
 
+        # Initialization parameters
         self.num_inputs = num_inputs
         self.num_hidden = num_hidden
         self.num_outputs = num_outputs
