@@ -79,7 +79,7 @@ processedData = processData(data=rawData,
 saveFile = 'processedData/wdbc.data'
 elementSeparator = '\n'
 parameterSeparator = ','
-writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
+writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator, rearrange=True)
 
 # How to plot a random data point:
 #figurePath = 'figures\\wdbcPlot.pdf'

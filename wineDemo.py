@@ -99,9 +99,9 @@ processedData = processData(data=rawData,
 saveFile = 'processedData/wine.data'
 elementSeparator = '\n'
 parameterSeparator = ','
-writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
+writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator, rearrange=True)
 
-# How to plot a random data point:
+# How to plot a random data point (if it used Gaussian Encoding)
 #figurePath = 'figures/winePlot.pdf'
 #fieldSuperposition = 1.5 # Beta
 #nInputNeurons = 4 # Input neurons per parameter
