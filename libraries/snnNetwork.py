@@ -2,19 +2,17 @@
 import torch
 import torch.nn as nn
 
-from snnNeurons import *
-
-# Network definitions
-batch_size = 5
-num_steps = 30
+from libraries.snnNeurons import *
 
 class NetIzhi(nn.Module):
-    def __init__(self, num_inputs, num_hidden, num_outputs):
+    def __init__(self, num_inputs, num_hidden, num_outputs, batch_size, num_steps):
         super(NetIzhi, self).__init__()
 
         self.num_inputs = num_inputs
         self.num_hidden = num_hidden
         self.num_outputs = num_outputs
+        self.batch_size = batch_size
+        self.num_steps = num_steps
 
         # Initialize layers
         self.fc1 = nn.Linear(num_inputs, num_hidden)
@@ -25,10 +23,10 @@ class NetIzhi(nn.Module):
     def forward(self, x):
 
         # Initialize hidden states at t=0
-        mem1 = torch.zeros((batch_size, self.num_hidden),  dtype=torch.float)
-        mem2 = torch.zeros((batch_size, self.num_outputs), dtype=torch.float)
-        rec1 = torch.zeros((batch_size, self.num_hidden),  dtype=torch.float)
-        rec2 = torch.zeros((batch_size, self.num_outputs), dtype=torch.float)
+        mem1 = torch.zeros((self.batch_size, self.num_hidden),  dtype=torch.float)
+        mem2 = torch.zeros((self.batch_size, self.num_outputs), dtype=torch.float)
+        rec1 = torch.zeros((self.batch_size, self.num_hidden),  dtype=torch.float)
+        rec2 = torch.zeros((self.batch_size, self.num_outputs), dtype=torch.float)
 
         # Record layers
         x_rec = []
@@ -36,7 +34,7 @@ class NetIzhi(nn.Module):
         spk2_rec = []
         mem1_rec = []
         mem2_rec = []
-        for step in range(num_steps):
+        for step in range(self.num_steps):
             cur1 = self.fc1(x)
             spk1, mem1, rec1 = self.lif1(cur1, mem1, rec1)
             cur2 = self.fc2(spk1)
@@ -51,31 +49,33 @@ class NetIzhi(nn.Module):
     
 # Define Network
 class NetLIF(nn.Module):
-    def __init__(self, num_inputs, num_hidden, num_outputs):
+    def __init__(self, num_inputs, num_hidden, num_outputs, batch_size, num_steps):
         super(NetLIF, self).__init__()
 
         self.num_inputs = num_inputs
         self.num_hidden = num_hidden
         self.num_outputs = num_outputs
+        self.batch_size = batch_size
+        self.num_steps = num_steps
 
         # Initialize layers
         self.fc1 = nn.Linear(num_inputs, num_hidden)
-        self.lif1 = LeakySurrogate(beta=beta)
+        self.lif1 = LeakySurrogate()
         self.fc2 = nn.Linear(num_hidden, num_outputs)
-        self.lif2 = LeakySurrogate(beta=beta)
+        self.lif2 = LeakySurrogate()
 
     def forward(self, x):
 
         # Initialize hidden states at t=0
-        mem1 = torch.zeros(batch_size, self.num_hidden)
-        mem2 = torch.zeros(batch_size, self.num_outputs)
+        mem1 = torch.zeros(self.batch_size, self.num_hidden)
+        mem2 = torch.zeros(self.batch_size, self.num_outputs)
 
         # Record the final layer
         x_rec = []
         spk2_rec = []
         mem1_rec = []
         mem2_rec = []
-        for step in range(num_steps):
+        for step in range(self.num_steps):
             cur1 = self.fc1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
             cur2 = self.fc2(spk1)

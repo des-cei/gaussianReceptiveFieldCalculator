@@ -53,7 +53,7 @@ c = 0.105
 d = 0.412
 vth = 0.7
 
-# Leaky neuron model, overriding the backward pass with a custom function
+# Izhikevich neuron model, overriding the backward pass with a custom function
 class Izhi(nn.Module):
     def __init__(self):
         super(Izhi, self).__init__()
@@ -62,8 +62,7 @@ class Izhi(nn.Module):
         self.threshold = vth
         self.spike_gradient = self.ATan.apply
         
-
-    # the forward function is called each time we call Leaky
+    # the forward function is called each time we call Izhi
     def forward(self, input_, mem, rec):
         spk = self.spike_gradient((mem-self.threshold))  # call the Heaviside function
 
