@@ -1,3 +1,5 @@
+# TODO: This README.md is outdated and will be updated in the near future
+
 # Gaussian Field Calculator
 This repository provides a small set of function to read UCI datasets or similar, process the different variables of the data elements and encode those values into sets of firing intervals for $n$ input neurons.\
 ## Mathematical fundamentals
