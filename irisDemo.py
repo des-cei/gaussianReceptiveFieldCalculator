@@ -61,6 +61,8 @@ processedData = processData(data=rawData,
                             add_results=True,
                             resultEncoding=resultEncoding,
                             resultPosition=resultPosition,
+                            gaussian=False,
+                            normalize=True,
                             )
 
 # Save data
@@ -70,12 +72,12 @@ parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator, rearrange=True)
 
 # How to plot a random data point:
-figurePath = './figures/irisPlot.pdf'
-fieldSuperposition = 1.5 # Beta
-nInputNeurons = 4 # Input neurons per parameter
-nIntervals = 10
-elementToPlot = 0
-parameterToPlot = 0
-
-plotDataPoint(rawData, figurePath, fieldSuperposition, nInputNeurons, \
-              nIntervals, elementToPlot, parameterToPlot)
+#figurePath = './figures/irisPlot.pdf'
+#fieldSuperposition = 1.5 # Beta
+#nInputNeurons = 4 # Input neurons per parameter
+#nIntervals = 10
+#elementToPlot = 0
+#parameterToPlot = 0
+#
+#plotDataPoint(rawData, figurePath, fieldSuperposition, nInputNeurons, \
+#              nIntervals, elementToPlot, parameterToPlot)

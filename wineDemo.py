@@ -78,28 +78,35 @@ rawData = readCSVData(sourceFile, elementSeparator, parameterSeparator)
 variablePositions = range(1, 13, 1)
 resultPosition = 0
 resultEncoding = {
-  "1": "10",
-  "2": "13",
-  "3": "16"
+  "1": "0",
+  "2": "1",
+  "3": "2"
 }
 fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10
-processedData = processData(rawData, variablePositions, resultPosition, resultEncoding, \
-                            fieldSuperposition, nInputNeurons, nIntervals)
 
+processedData = processData(data=rawData, 
+                            variablePositions=variablePositions, 
+                            nInputNeurons=nInputNeurons, 
+                            fieldSuperposition=fieldSuperposition,
+                            add_results=True,
+                            resultEncoding=resultEncoding,
+                            resultPosition=resultPosition,
+                            gaussian=False,
+                            )
 # Save data
-saveFile = 'processedData\\wine.data'
+saveFile = 'processedData/wine.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
 
 # How to plot a random data point:
-figurePath = 'figures\\winePlot.pdf'
-fieldSuperposition = 1.5 # Beta
-nInputNeurons = 4 # Input neurons per parameter
-nIntervals = 10
-elementToPlot = 1
-parameterToPlot = 1
-plotDataPoint(rawData, figurePath, fieldSuperposition, \
-              nInputNeurons, nIntervals, elementToPlot, parameterToPlot)
+#figurePath = 'figures/winePlot.pdf'
+#fieldSuperposition = 1.5 # Beta
+#nInputNeurons = 4 # Input neurons per parameter
+#nIntervals = 10
+#elementToPlot = 1
+#parameterToPlot = 1
+#plotDataPoint(rawData, figurePath, fieldSuperposition, \
+#              nInputNeurons, nIntervals, elementToPlot, parameterToPlot)

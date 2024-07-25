@@ -47,7 +47,7 @@ from libraries.gaussianReceptiveFieldCalculator import *
 
 
 # Read data
-sourceFile = 'datasets\\wdbc\\wdbc.data'
+sourceFile = 'datasets/wdbc/wdbc.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 
@@ -58,29 +58,36 @@ variablePositions = range(2, 12, 1) # Mean value (only the first 10 parameters)
 
 resultPosition = 1
 resultEncoding = {
-  "M": "13",
-  "B": "20"
+  "M": "0",
+  "B": "1"
 }
 fieldSuperposition = 1.5 # Beta
 nInputNeurons = 4 # Input neurons per parameter
 nIntervals = 10
 
-processedData = processData(rawData, variablePositions, resultPosition, resultEncoding, \
-                            fieldSuperposition, nInputNeurons, nIntervals)
+processedData = processData(data=rawData, 
+                            variablePositions=variablePositions, 
+                            nInputNeurons=nInputNeurons, 
+                            fieldSuperposition=fieldSuperposition,
+                            add_results=True,
+                            resultEncoding=resultEncoding,
+                            resultPosition=resultPosition,
+                            gaussian=False,
+                            )
 
 # Save data
-saveFile = 'processedData\\wdbc.data'
+saveFile = 'processedData/wdbc.data'
 elementSeparator = '\n'
 parameterSeparator = ','
 writeCSVData(processedData, saveFile, elementSeparator, parameterSeparator)
 
 # How to plot a random data point:
-figurePath = 'figures\\wdbcPlot.pdf'
-fieldSuperposition = 0.75 # Beta
-nInputNeurons = 4 # Input neurons per parameter
-nIntervals = 10
-elementToPlot = 1
-parameterToPlot = 2
-
-plotDataPoint(rawData, figurePath, fieldSuperposition, \
-              nInputNeurons, nIntervals, elementToPlot, parameterToPlot)
+#figurePath = 'figures\\wdbcPlot.pdf'
+#fieldSuperposition = 0.75 # Beta
+#nInputNeurons = 4 # Input neurons per parameter
+#nIntervals = 10
+#elementToPlot = 1
+#parameterToPlot = 2
+#
+#plotDataPoint(rawData, figurePath, fieldSuperposition, \
+#              nInputNeurons, nIntervals, elementToPlot, parameterToPlot)

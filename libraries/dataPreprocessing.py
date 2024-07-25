@@ -88,40 +88,57 @@ def processData(
     resultPosition=0,
     resultEncoding={},
     add_results = False,
-):
+    gaussian = True,
+    normalize = False):
   
-  # Calculate the limit values for each parameter (To optimally distribute the Gaussian Fields)
-  limitValues = findLimitValues(data, variablePositions)
-
-  # Calculate the gaussian field distribution for every parameter
-  expectedValueGroups = []
-  standardDeviations = [] 
-  for i in range(len(variablePositions)):
-    expectedValueGroup = \
-      calculateExpectedValueGroup(limitValues[i][0], limitValues[i][1], nInputNeurons)
-    standardDeviation = \
-      calculateStandardDeviation(limitValues[i][0], limitValues[i][1], nInputNeurons, fieldSuperposition)
-    
-    expectedValueGroups.append(expectedValueGroup)
-    standardDeviations.append(standardDeviation)
-
-
-  # Calculate the excitation and input intervals for every parameter of every elementç      
   elementsInputs = []
-  for element in data:
-    elementInputs = np.zeros(shape=(4,4))
-    for variablePos,variableIndex in enumerate(variablePositions):
-      parameterExcitation = calculateExcitation(element[variableIndex], \
-                expectedValueGroups[variablePos], standardDeviations[variablePos])
-      
-      if(calculate_intervals == True):
-        parameterInputs = calculateInputIntervals(parameterExcitation, nIntervals)
-      else:
-        parameterInputs = parameterExcitation
+  # Compute Gaussian Receptive Fields
+  if(gaussian == True):
+    # Calculate the limit values for each parameter (To optimally distribute the Gaussian Fields)
+    limitValues = findLimitValues(data, variablePositions)
 
-      elementInputs[variableIndex] = parameterInputs
-    elementInputs = np.reshape(elementInputs,  16, order='F')
-    elementsInputs.append(elementInputs.tolist())
+    # Calculate the gaussian field distribution for every parameter
+    expectedValueGroups = []
+    standardDeviations = [] 
+    for i in range(len(variablePositions)):
+      expectedValueGroup = \
+        calculateExpectedValueGroup(limitValues[i][0], limitValues[i][1], nInputNeurons)
+      standardDeviation = \
+        calculateStandardDeviation(limitValues[i][0], limitValues[i][1], nInputNeurons, fieldSuperposition)
+      
+      expectedValueGroups.append(expectedValueGroup)
+      standardDeviations.append(standardDeviation)
+
+
+    # Calculate the excitation and input intervals for every parameter of every elementç      
+    for element in data:
+      elementInputs = np.zeros(shape=(4,4))
+      for variablePos,variableIndex in enumerate(variablePositions):
+        parameterExcitation = calculateExcitation(element[variableIndex], \
+                  expectedValueGroups[variablePos], standardDeviations[variablePos])
+        
+        if(calculate_intervals == True):
+          parameterInputs = calculateInputIntervals(parameterExcitation, nIntervals)
+        else:
+          parameterInputs = parameterExcitation
+
+        elementInputs[variableIndex] = parameterInputs
+      elementInputs = np.reshape(elementInputs,  16, order='F')
+      elementsInputs.append(elementInputs.tolist())
+
+  # Pass data without processing
+  else:
+    for element in data:
+      element_row = []
+      for variablePos, variableIndex in enumerate(variablePositions):
+        element_row.append(float(element[variableIndex]))
+      elementsInputs.append(element_row)
+
+    if(normalize == True):
+      limitValues = findLimitValues(data, variablePositions)
+      for element_idx, element in enumerate(elementsInputs):
+        for value_idx, value in enumerate(element):
+          elementsInputs[element_idx][value_idx] = (value - limitValues[value_idx][0]) / (limitValues[value_idx][1] - limitValues[value_idx][0])
 
   # Add the result encoding
   if(add_results == True):
@@ -129,8 +146,8 @@ def processData(
       result = data[i][resultPosition]
       resultEncoded = resultEncoding[result]
       elementsInputs[i].append(resultEncoded)
-
   return elementsInputs
+  
 
 
 def writeCSVData(data, fileName, elementSeparator, parameterSeparator, rearrange=False):
@@ -146,8 +163,7 @@ def writeCSVData(data, fileName, elementSeparator, parameterSeparator, rearrange
     f.write(dataString)
   f.close()
   
-  
-  
+
 def plotDataPoint(data, filePath, fieldSuperposition, nInputNeurons, \
                   nIntervals, elementToPlot, parameterToPlot):
   # Configure plot resolution
