@@ -11,11 +11,17 @@ This repository includes libraries for the training and execution of Spiking Neu
     - [Leaky Integrate & Fire](#leaky-integrate-&-fire)
     - [Normalized Izhikevich](#normalized-izhikevich)
 
-## Software Requirements
-- 
+## Getting Started
+- Download the repository with `git clone `.
+- Install Python3 with `sudo apt-get update` and `sudo apt-get python3`.
+- Use `pip install -r requirements.txt`, to download the associated libraries. *Numpy*, *matplotlib*, *pandas* and *torch* will be used.
 
 ## Demos
-
+Three demos are available. They aim to illustrate the execution of the same operations with each dataset, which can be selected with arguments.
+- `-v` will print the majority of the available information on every stage.
+- `-p` will process the data according to the selected arguments. In this case, data is just normalized and scrambled for training before being stored in the *processedData* folder.
+- `-l` will train and test an SNN with the LIF model, using the available data. The trained network  weights and biases are stored in the *networks* folder.
+- `-i` will evaluate the network using the Izhikevich model. Since both models are normalized, it is expected to obtain similar performance with the LIF and Izhikevich models.
 
 ## Gaussian Field Encoding
 This repository provides a small set of function to read UCI datasets or similar, process the different variables of the data elements and encode those values into sets of firing intervals for $n$ input neurons.
