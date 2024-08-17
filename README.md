@@ -13,7 +13,8 @@ This repository includes libraries for the training and execution of Spiking Neu
 
 ## Getting Started
 - Download the repository with `git clone `.
-- Install Python3 with `sudo apt-get update` and `sudo apt-get python3`.
+- Install Python3 with `sudo apt-get update` and `sudo apt-get install python3`.
+- Install pip with `sudo python3 install pip`. 
 - Use `pip install -r requirements.txt`, to download the associated libraries. *Numpy*, *matplotlib*, *pandas* and *torch* will be used.
 
 ## Demos
@@ -56,10 +57,62 @@ Use cases of the following functions are included on the three available demo fi
 
 ### Leaky Integrate & Fire
 
-The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. 
-
-
+The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\Beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking.
 
 
 ### Normalized Izhikevich
 
+The Izhikevich neuron model aims to provide an accurate neuron model at a relatively low computational cost. Instead of having a single hyperparameter, such as the LIF model, it includes four. By adjusting this parameters, it is possible to produce a wide variety of behaviors besides the regular spiking that characterizes LIF neurons. Izhikevich models are capable of chattering, bursting and they can even behave as resonators
+
+$$ C\dot v = k(v - v_r)(v - v_t) - u + I $$
+$$ \dot u = a [b(v - v_r) - u] $$
+$$ \text{if} \; v \le v_{\text{p}} \;\;\;\; v \leftarrow c \;\;\;\; u \leftarrow u + d$$
+
+For example to produce regular spiking patterns the following parameters can be used:
+
+- $C = 100 \;\;\;\,\rightarrow$              Membrane capacitance (pF)
+- $k = 0.7 \;\;\;\;\;\rightarrow $              Input resistance (pA/mV)
+- $v_r = -60\;\;\rightarrow$              Resting membrane potential (mV)
+- $v_t = -40\;\;\,\rightarrow$              Instantaneous threshold potential (mV)
+- $a = 0.03 \;\;\;\,\rightarrow$              Time scale of the recovery variable (1/ms)
+- $b = -2 \;\;\;\;\;\,\rightarrow$              Sensitivity of the recovery variable (pA/mV)
+- $c = -50\;\;\;\,\rightarrow$              Potential reset value (mV)
+- $d = 100 \;\;\;\,\, \rightarrow$              Spike triggered adaptation (pA)
+- $v_p = 35\;\;\;\;\,\rightarrow$      Spike cutoff
+
+However, when introducing this neuron model as an SNN layer, adjusting the weights and biases of the layers that this neurons are connected to can be really challenging. For this reason, researchers have proposed alternatives to [normalize this model](https://www.mdpi.com/2079-9292/13/5/909).
+
+By operating with the parenthesis, the previous equation can be expressed as:
+$$ \dot v = a_1v^2 + a_2v + a_3u + a_4I + a_5$$
+$$ \dot u = b_1v+b_2u+b_3  $$
+$$ \text{if} \; v \le v_{\text{p}} \;\;\;\; v \leftarrow c \;\;\;\; u \leftarrow u + d$$
+$$a_1 = \frac{k}{C}\;\;\; a_2 = -\frac{k}{C}(v_r+v_t)\;\;\; a_3 = -\frac{1}{C}\;\;\; a_4 = \frac{1}{C}\;\;\; a_5 = \frac{k}{C}(v_r+v_t)$$
+$$b_1 = ab\;\;\; b_2 = -a\;\;\; b_3 = -abv_r$$
+
+To normalize this equation, it can be established that:
+$$L_v = \text{max}_v - \text{min}_v$$
+$$L_u = \text{max}_u - \text{min}_u$$
+
+The same process that was previously shown results in:
+$$ \dot v = a_1v^2 + a_2v + a_3u + a_4I + a_5$$
+$$ \dot u = b_1v+b_2u+b_3  $$
+
+$$ \text{if} \; v \le c_1 \;\;\;\; v \leftarrow c_2 \;\;\;\; u \leftarrow u + c_3$$
+
+$$a_1 = L_v\frac{k}{C}\;\;\; a_2 = (2\text{min}_v - v_r - v_t)\frac{k}{C}\;\;\; a_3 = \frac{L_u}{L_vC}\;\;\; a_4 = \frac{1}{L_vC}\;\;\; a_5= \frac{k}{C}(\text{min}^2_v - v_r\text{min}_v- v_t\text{min}_v + v_rv_t)-\frac{\text{min}_u}{C}$$
+$$b_1 = ab\frac{L_v}{L_u}\;\;\; b_2 = -a\;\;\; b_3 = (ab\text{min}_v-abv_r - a\text{min}_u) \frac{1}{L_u}$$
+$$c_1 = \frac{v_p - \text{min}_u}{C}\;\;\; c_2 = \frac{c - min_v}{L_v}\;\;\; c_3 = \frac{d}{L_u}$$
+
+However, since the Input $I$ is dependant on the weights and biases of the network, it is not needed to scale its value with $a_4$ or to add an offset $a_5$.
+
+
+To produce the same spiking behavior as the default Izhikevich neuron, the parameters would be:
+- $a_1 = 1.0$
+- $a_2 = -0.21$
+- $a_3 = -0.019$
+- $b_1 = -1/32$
+- $b_2 = -1/32$
+- $b_3 = 0$
+- $c_1 = 1$
+- $c_2 = 0.105$
+- $c_3 = 0.412$
