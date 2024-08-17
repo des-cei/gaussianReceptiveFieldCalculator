@@ -35,7 +35,7 @@ However, the normalization constant $\frac{1}{\sigma \sqrt{2\pi}}$ used to ensur
 
 A Gaussian field will be placed equidistantly for the $n$ input neurons throughout each variable's range. The position of a receptive field $i \in [0, n]$, is determined by its expected or mean value $$\mu = x_{min} + \frac{(2i-1)}{2}\frac{(x_{max}-x_{min})}{(n - 2)}$$
 
-Each receptive field will have the same standard deviation. A field superposition vale $\beta$ of 1.5 has proven good results on the [literature](https://homepages.cwi.nl/~sbohte/publication/backprop.pdf). $$\sigma = \frac{1}{\beta}\frac{(x_{max}-x_{min})}{(n - 2)}$$
+Each receptive field will have the same standard deviation. A field superposition value $\Beta$ of 1.5 has proven good results on the [literature](https://homepages.cwi.nl/~sbohte/publication/backprop.pdf). $$\sigma = \frac{1}{\beta}\frac{(x_{max}-x_{min})}{(n - 2)}$$
 
 ### Methods
 Use cases of the following functions are included on the three available demo files.
