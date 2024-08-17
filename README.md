@@ -80,15 +80,15 @@ $$ \text{if} \\; v \le v_{\text{p}} \\; \\; \\; \\; v \leftarrow c  \\; \\; \\; 
 
 For example to produce regular spiking patterns the following parameters can be used:
 
-- $C = 100 \\;\\;\\;\\,\rightarrow$              Membrane capacitance (pF)
-- $k = 0.7 \\;\\;\\;\\;\\;\rightarrow $              Input resistance (pA/mV)
+- $C = 100 \\;\\;\rightarrow$              Membrane capacitance (pF)
+- $k = 0.7\\;\\;\rightarrow $              Input resistance (pA/mV)
 - $v_r = -60\\;\\;\rightarrow$              Resting membrane potential (mV)
-- $v_t = -40\\;\\;\\,\rightarrow$              Instantaneous threshold potential (mV)
-- $a = 0.03 \\;\\;\\;\\,\rightarrow$              Time scale of the recovery variable (1/ms)
-- $b = -2 \\;\\;\\;\\;\\;\\,\rightarrow$              Sensitivity of the recovery variable (pA/mV)
-- $c = -50\\;\\;\\;\\,\rightarrow$              Potential reset value (mV)
-- $d = 100 \\;\\;\\;\\,\\, \rightarrow$              Spike triggered adaptation (pA)
-- $v_p = 35\\;\\;\\;\\;\\,\rightarrow$      Spike cutoff
+- $v_t = -40\\;\\;\rightarrow$              Instantaneous threshold potential (mV)
+- $a = 0.03 \\;\\;\rightarrow$              Time scale of the recovery variable (1/ms)
+- $b = -2 \\;\\;\rightarrow$              Sensitivity of the recovery variable (pA/mV)
+- $c = -50\\;\\;\rightarrow$              Potential reset value (mV)
+- $d = 100 \\;\\;\rightarrow$              Spike triggered adaptation (pA)
+- $v_p = 35\\;\\;\rightarrow$      Spike cutoff
 
 However, when introducing this neuron model as an SNN layer, adjusting the weights and biases of the layers that this neurons are connected to can be really challenging. For this reason, researchers have proposed alternatives to [normalize this model](https://www.mdpi.com/2079-9292/13/5/909).
 
