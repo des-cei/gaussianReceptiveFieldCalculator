@@ -81,7 +81,7 @@ $$ \text{if} \\; v \le v_{\text{p}} \\; \\; \\; \\; v \leftarrow c  \\; \\; \\; 
 For example to produce regular spiking patterns the following parameters can be used:
 
 - $C = 100 \\;\\;\rightarrow$              Membrane capacitance (pF)
-- $k = 0.7\\;\\;\rightarrow $              Input resistance (pA/mV)
+- $k = 0.7\\;\\;\rightarrow$              Input resistance (pA/mV)
 - $v_r = -60\\;\\;\rightarrow$              Resting membrane potential (mV)
 - $v_t = -40\\;\\;\rightarrow$              Instantaneous threshold potential (mV)
 - $a = 0.03 \\;\\;\rightarrow$              Time scale of the recovery variable (1/ms)
