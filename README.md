@@ -88,7 +88,7 @@ For example to produce regular spiking patterns the following parameters can be 
 - $b = -2 \\;\\;\rightarrow$              Sensitivity of the recovery variable (pA/mV)
 - $c = -50\\;\\;\rightarrow$              Potential reset value (mV)
 - $d = 100 \\;\\;\rightarrow$              Spike triggered adaptation (pA)
-- $v_p = 35\\;\\;\rightarrow$      Spike cutoff
+- $v_p = 35\\;\\;\rightarrow$      Spike cutoff (mV)
 
 However, when introducing this neuron model as an SNN layer, adjusting the weights and biases of the layers that this neurons are connected to can be really challenging. For this reason, researchers have proposed alternatives to [normalize this model](https://www.mdpi.com/2079-9292/13/5/909).
 
