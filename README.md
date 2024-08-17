@@ -66,7 +66,7 @@ The Izhikevich neuron model aims to provide an accurate neuron model at a relati
 
 $$ C\dot v = k(v - v_r)(v - v_t) - u + I $$
 $$ \dot u = a [b(v - v_r) - u] $$
-$$ \text{if} \; v \le v_{\text{p}} \;\;\;\; v \leftarrow c \;\;\;\; u \leftarrow u + d$$
+$$ \text{if} \; v \le v_{\text{p}} \; \; \; \; v \leftarrow c  \; \; \; \;  u \leftarrow u + d$$
 
 For example to produce regular spiking patterns the following parameters can be used:
 
