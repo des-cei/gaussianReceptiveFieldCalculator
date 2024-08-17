@@ -65,7 +65,9 @@ The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neur
 The Izhikevich neuron model aims to provide an accurate neuron model at a relatively low computational cost. Instead of having a single hyperparameter, such as the LIF model, it includes four. By adjusting this parameters, it is possible to produce a wide variety of behaviors besides the regular spiking that characterizes LIF neurons. Izhikevich models are capable of chattering, bursting and they can even behave as resonators
 
 $$ C\dot v = k(v - v_r)(v - v_t) - u + I $$
+
 $$ \dot u = a [b(v - v_r) - u] $$
+
 $$ \text{if} \\; v \le v_{\text{p}} \\; \\; \\; \\; v \leftarrow c  \\; \\; \\; \\;  u \leftarrow u + d$$
 
 For example to produce regular spiking patterns the following parameters can be used:
@@ -84,23 +86,32 @@ However, when introducing this neuron model as an SNN layer, adjusting the weigh
 
 By operating with the parenthesis, the previous equation can be expressed as:
 $$ \dot v = a_1v^2 + a_2v + a_3u + a_4I + a_5$$
+
 $$ \dot u = b_1v+b_2u+b_3  $$
+
 $$ \text{if} \\; v \le v_{\text{p}} \\;\\;\\;\\; v \leftarrow c \\;\\;\\;\\; u \leftarrow u + d$$
+
 $$a_1 = \frac{k}{C}\\;\\;\\; a_2 = -\frac{k}{C}(v_r+v_t)\\;\\;\\; a_3 = -\frac{1}{C}\\;\\;\\; a_4 = \frac{1}{C}\\;\\;\\; a_5 = \frac{k}{C}(v_r+v_t)$$
+
 $$b_1 = ab\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = -abv_r$$
 
 To normalize this equation, it can be established that:
 $$L_v = \text{max}_v - \text{min}_v$$
+
 $$L_u = \text{max}_u - \text{min}_u$$
 
 The same process that was previously shown results in:
+
 $$ \dot v = a_1v^2 + a_2v + a_3u + a_4I + a_5$$
+
 $$ \dot u = b_1v+b_2u+b_3  $$
 
 $$ \text{if} \\; v \le c_1 \\;\\;\\;\\; v \leftarrow c_2 \\;\\;\\;\\; u \leftarrow u + c_3$$
 
 $$a_1 = L_v\frac{k}{C}\\;\\;\\; a_2 = (2\text{min}_v - v_r - v_t)\frac{k}{C}\\;\\;\\; a_3 = \frac{L_u}{L_vC}\\;\\;\\; a_4 = \frac{1}{L_vC}\\;\\;\\; a_5= \frac{k}{C}(\text{min}^2_v - v_r\text{min}_v- v_t\text{min}_v + v_rv_t)-\frac{\text{min}_u}{C}$$
+
 $$b_1 = ab\frac{L_v}{L_u}\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = (ab\text{min}_v-abv_r - a\text{min}_u) \frac{1}{L_u}$$
+
 $$c_1 = \frac{v_p - \text{min}_u}{C}\\;\\;\\; c_2 = \frac{c - min_v}{L_v}\\;\\;\\; c_3 = \frac{d}{L_u}$$
 
 However, since the Input $I$ is dependant on the weights and biases of the network, it is not needed to scale its value with $a_4$ or to add an offset $a_5$.
