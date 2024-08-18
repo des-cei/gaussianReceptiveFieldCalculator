@@ -122,10 +122,8 @@ $$b_1 = ab\frac{L_v}{L_u}\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = (ab\text{min}_v-abv_r
 
 $$c_1 = \frac{v_p - \text{min}_u}{C}\\;\\;\\; c_2 = \frac{c - min_v}{L_v}\\;\\;\\; c_3 = \frac{d}{L_u}$$
 
-However, since the Input $I$ is dependant on the weights and biases of the network, it is not needed to scale its value with $a_4$ or to add an offset $a_5$.
+However, since the Input $I$ is dependant on the weights and biases of the network, it is not needed to scale its value with $a_4$ or to add an offset $a_5$. A combination of parameters that is hardware-friendly and would exhibit the same behavior as the default Izhikevich neuron would be the following:
 
-
-To produce the same spiking behavior as the default Izhikevich neuron, the parameters would be:
 - $a_1 = 1.0$
 - $a_2 = -0.21$
 - $a_3 = -0.019$
