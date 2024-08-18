@@ -9,6 +9,7 @@ This repository includes libraries for the training and execution of Spiking Neu
     - [Methods](#methods)
 - [Neuron models](#neuron-models)
     - [Leaky Integrate & Fire](#leaky-integrate-&-fire)
+    - [Izhikevich](#izhikevich)
     - [Normalized Izhikevich](#normalized-izhikevich)
 
 ## Getting Started
@@ -50,6 +51,8 @@ Each receptive field will have the same standard deviation. A field superpositio
 $$\sigma = \frac{1}{\beta}\frac{(x_{max}-x_{min})}{(n - 2)}$$
 
 The following encoding example was calculated using this library:
+
+
 <div align="center">
     <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/gaussian_field_example.png" width="450">
 </div>
@@ -76,11 +79,13 @@ The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neur
 
 As an example, the following neuron receives spikes at the steps 10, 40, 50 and 60. Since they only last for a single timestep, they do not increase the membrane voltage enough to produce a spike. However, as you can see with the last input, multiple consecutive spikes are capable of making the neuron fire because its capacitor would not have enough time to discharge. This is the reason a spike is produced at the 60th step.
 
+
 <div align="center">
-    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/LIF_v.png" width="350">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/LIF_v.png" width="500">
 </div>
 
-### Normalized Izhikevich
+
+### Izhikevich
 
 The Izhikevich neuron model aims to provide an accurate neuron model at a relatively low computational cost. Instead of having a single hyperparameter, such as the LIF model, it includes four. By adjusting this parameters, it is possible to produce a wide variety of behaviors besides the regular spiking that characterizes LIF neurons. Izhikevich models are capable of chattering, bursting and they can even behave as resonators
 
@@ -117,9 +122,13 @@ $$b_1 = ab\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = -abv_r$$
 
 As an example, the following neuron receives impulses with increased durations. The impulses start at the time steps 200, 400 and 600. The first two ones are not long nor high enough to elicit spikes. However, the last one is long enough to reach the threshold.  
 
+
 <div align="center">
     <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/norm_izhi_v.png" width="500">
 </div>
+
+
+### Normalized Izhikevich
 
 To normalize the Izhikevich model equations, it can be established that:
 $$L_v = \text{max}_v - \text{min}_v$$
@@ -153,6 +162,7 @@ However, since the Input $I$ is dependant on the weights and biases of the netwo
 - $c_3 = 0.412$
 
 As you can see, with an adequately scaled input the neuron's behavior is identical to the previous one.
+
 
 <div align="center">
     <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/izhi_v.png" width="500">
