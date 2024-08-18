@@ -100,7 +100,7 @@ $$ C\dot v = k(v - v_r)(v - v_t) - u + I $$
 
 $$ \dot u = a [b(v - v_r) - u] $$
 
-$$ \text{if} \\; v \le v_{\text{p}} \\; \\; \\; \\; v \leftarrow c  \\; \\; \\; \\;  u \leftarrow u + d$$
+$$ \text{if} \\; (v \le v_{\text{p}}) \\; \\; \\; \\; v \leftarrow c  \\; \\; \\; \\;  u \leftarrow u + d$$
 
 For example to produce regular spiking patterns the following parameters can be used:
 
@@ -121,7 +121,7 @@ $$ \dot v = a_1v^2 + a_2v + a_3u + a_4I + a_5$$
 
 $$ \dot u = b_1v+b_2u+b_3  $$
 
-$$ \text{if} \\; v \le v_{\text{p}} \\;\\;\\;\\; v \leftarrow c \\;\\;\\;\\; u \leftarrow u + d$$
+$$ \text{if} \\; (v \le v_{\text{p}}) \\;\\;\\;\\; v \leftarrow c \\;\\;\\;\\; u \leftarrow u + d$$
 
 $$a_1 = \frac{k}{C}\\;\\;\\; a_2 = -\frac{k}{C}(v_r+v_t)\\;\\;\\; a_3 = -\frac{1}{C}\\;\\;\\; a_4 = \frac{1}{C}\\;\\;\\; a_5 = \frac{k}{C}(v_r+v_t)$$
 
@@ -148,7 +148,7 @@ $$ \dot v = a_1v^2 + a_2v + a_3u + a_4I + a_5$$
 
 $$ \dot u = b_1v+b_2u+b_3  $$
 
-$$ \text{if} \\; v \le c_1 \\;\\;\\;\\; v \leftarrow c_2 \\;\\;\\;\\; u \leftarrow u + c_3$$
+$$ \text{if} \\; (v \le c_1) \\;\\;\\;\\; v \leftarrow c_2 \\;\\;\\;\\; u \leftarrow u + c_3$$
 
 $$a_1 = L_v\frac{k}{C}\\;\\;\\; a_2 = (2\text{min}_v - v_r - v_t)\frac{k}{C}\\;\\;\\; a_3 = \frac{L_u}{L_vC}\\;\\;\\; a_4 = \frac{1}{L_vC}\\;\\;\\;$$
 
