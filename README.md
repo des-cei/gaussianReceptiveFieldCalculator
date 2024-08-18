@@ -75,7 +75,7 @@ Use cases of the following functions are included on the three available demo fi
 ## Neuron models
 ### Leaky Integrate & Fire
 
-The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking. [This tutorials](https://snntorch.readthedocs.io/en/latest/tutorials/tutorial_3.html) providesç an excellent overview of the way the model's equations are derived.
+The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking. [This tutorials](https://snntorch.readthedocs.io/en/latest/tutorials/tutorial_3.html) provides an excellent overview of the way the model's equations are derived.
 
 The first term handles the decay that neuron voltage exhibits over time, the second one adds the weighted  input $WX$ and the last one handles the reset, which will subtract the $U_{thr}$ if a spike is detected. 
 
