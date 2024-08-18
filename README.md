@@ -81,7 +81,7 @@ The first term handles the decay that neuron voltage exhibits over time, the sec
 
 $$U[t+1] = \beta U[t] + WX[t+1] - S[t]U_{thr}$$
 
-$$\text{if} \\; U[t] > U_{thr} \\;\\; S[t] = 1  \\;\\;\\;\\; \text{else} \\; S[t] = 0$$ 
+$$\text{if} \\; (U[t] > U_{thr}) \\;\\; S[t] = 1  \\;\\;\\;\\; \text{else} \\; S[t] = 0$$ 
 
 
 As an example, the following neuron receives spikes at the steps 10, 40, 50 and 60. Since they only last for a single timestep, they do not increase the membrane voltage enough to produce a spike. However, as you can see with the last input, multiple consecutive spikes are capable of making the neuron fire because its capacitor would not have enough time to discharge. This is the reason a spike is produced at the 60th step.
