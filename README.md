@@ -18,19 +18,18 @@ This repository includes libraries for the training and execution of Spiking Neu
 - Use `pip install -r requirements.txt`, to download the associated libraries. *Numpy*, *matplotlib*, *pandas* and *torch* will be used.
 
 ## Demos
-Three demos are available. They aim to illustrate the execution of the same operations with each dataset, which can be selected with arguments.
+Three demos are available. They aim to illustrate the execution of the same operations with each dataset, which can be selected with arguments. `-v` will enable the verbose mode.
 
 <div align="center">
     <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/python_arguments.png" width="200">
 </div>
 
-- `-v` will print the majority of the available information on every stage.
 - `-p` will process the data according to the selected arguments. In this case, data is just normalized and scrambled for training before being stored in the *processedData* folder.
 - `-l` will train and test an SNN with the LIF model, using the available data. The trained network  weights and biases are stored in the *networks* folder.
 - `-i` will evaluate the network using the Izhikevich model. Since both models are normalized, it is expected to obtain similar performance with the LIF and Izhikevich models.
 
 ## Gaussian Field Encoding
-This repository provides a small set of function to read UCI datasets or similar, process the different variables of the data elements and encode those values into sets of firing intervals for $n$ input neurons.
+This repository provides a small set of functions to read UCI datasets or similar, process the different variables of the data elements and encode those values into sets of firing intervals for $n$ input neurons.
 
 ### Mathematical fundamentals
 
@@ -50,6 +49,11 @@ Each receptive field will have the same standard deviation. A field superpositio
 
 $$\sigma = \frac{1}{\beta}\frac{(x_{max}-x_{min})}{(n - 2)}$$
 
+The following encoding example was calculated using this library:
+<div align="center">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/gaussian_field_example.png" width="450">
+</div>
+
 ### Methods
 Use cases of the following functions are included on the three available demo files.
 * **readCSVData()** returns a list of lists that contains the file data. To parse a *.csv* file the element separator would be `\n` and the parameter separator `,`.
@@ -66,14 +70,15 @@ Use cases of the following functions are included on the three available demo fi
 * **plotDataPoint()** Creates a figure in *.pdf* format that represents the  receptive field set, the excitation values and the input intervals for each neuron of one of the parameters of an element of the dataset. The latter two parameters of the function select the element and parameter to plot.
 
 ## Neuron models
-
-
 ### Leaky Integrate & Fire
 
 The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking.
 
+As an example, the following neuron receives spikes at the steps 10, 40, 50 and 60. Since they only last for a single timestep, they do not increase the membrane voltage enough to produce a spike. However, as you can see with the last input, multiple consecutive spikes are capable of making the neuron fire because its capacitor would not have enough time to discharge. This is the reason a spike is produced at the 60th step.
 
-
+<div align="center">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/LIF_v.png" width="350">
+</div>
 
 ### Normalized Izhikevich
 
@@ -110,7 +115,13 @@ $$a_1 = \frac{k}{C}\\;\\;\\; a_2 = -\frac{k}{C}(v_r+v_t)\\;\\;\\; a_3 = -\frac{1
 
 $$b_1 = ab\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = -abv_r$$
 
-To normalize this equation, it can be established that:
+As an example, the following neuron receives impulses with increased durations. The impulses start at the time steps 200, 400 and 600. The first two ones are not long nor high enough to elicit spikes. However, the last one is long enough to reach the threshold.  
+
+<div align="center">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/norm_izhi_v.png" width="500">
+</div>
+
+To normalize the Izhikevich model equations, it can be established that:
 $$L_v = \text{max}_v - \text{min}_v$$
 
 $$L_u = \text{max}_u - \text{min}_u$$
@@ -140,3 +151,9 @@ However, since the Input $I$ is dependant on the weights and biases of the netwo
 - $c_1 = 1$
 - $c_2 = 0.105$
 - $c_3 = 0.412$
+
+As you can see, with an adequately scaled input the neuron's behavior is identical to the previous one.
+
+<div align="center">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/izhi_v.png" width="500">
+</div>
