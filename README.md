@@ -54,7 +54,7 @@ The following encoding example was calculated using this library:
 
 
 <div align="center">
-    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/gaussian_field_example.png" width="450">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/gaussian_fields_example.png" width="450">
 </div>
 
 ### Methods
