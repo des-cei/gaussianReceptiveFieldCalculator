@@ -79,7 +79,7 @@ The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neur
 
 The first term handles the decay that neuron voltage exhibits over time, the second one adds the weighted  input $WX$ and the last one handles the reset, which will subtract the $U_{thr}$ if a spike is detected. 
 
-$$U[t+1] = \betaU[t] + WX[t+1] - S[t]U_{thr}$$
+$$U[t+1] = \beta U[t] + WX[t+1] - S[t]U_{thr}$$
 
 $$\text{if} \\; U[t] > U_{thr} \\;\\; S[t] = 1  \\;\\;\\;\\; \text{else} \\;\\;\\; S[t] = 0$$ 
 
