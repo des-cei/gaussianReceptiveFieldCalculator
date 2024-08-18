@@ -131,7 +131,7 @@ As an example, the following neuron receives impulses with increased durations. 
 
 
 <div align="center">
-    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/norm_izhi_v.png" width="500">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/izhi_v.png" width="500">
 </div>
 
 
@@ -174,5 +174,5 @@ As you can see, with an adequately scaled input the neuron's behavior is identic
 
 
 <div align="center">
-    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/izhi_v.png" width="500">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/norm_izhi_v.png" width="500">
 </div>
