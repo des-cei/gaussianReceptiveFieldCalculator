@@ -14,11 +14,16 @@ This repository includes libraries for the training and execution of Spiking Neu
 ## Getting Started
 - Download the repository with `git clone `.
 - Install Python3 with `sudo apt-get update` and `sudo apt-get install python3`.
-- Install pip with `sudo python3 install pip`. 
+- Install pip with `sudo apt install python3-pip -y`. 
 - Use `pip install -r requirements.txt`, to download the associated libraries. *Numpy*, *matplotlib*, *pandas* and *torch* will be used.
 
 ## Demos
 Three demos are available. They aim to illustrate the execution of the same operations with each dataset, which can be selected with arguments.
+
+<div align="center">
+    <img src="https://github.com/des-cei/gaussianReceptiveFieldCalculator/blob/master/figures/python_arguments.png" width="200">
+</div>
+
 - `-v` will print the majority of the available information on every stage.
 - `-p` will process the data according to the selected arguments. In this case, data is just normalized and scrambled for training before being stored in the *processedData* folder.
 - `-l` will train and test an SNN with the LIF model, using the available data. The trained network  weights and biases are stored in the *networks* folder.
@@ -66,6 +71,8 @@ Use cases of the following functions are included on the three available demo fi
 ### Leaky Integrate & Fire
 
 The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking.
+
+
 
 
 ### Normalized Izhikevich
