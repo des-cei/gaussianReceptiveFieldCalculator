@@ -14,7 +14,7 @@ This repository includes libraries for the training and execution of Spiking Neu
 
 ## Getting Started
 - Download the repository with `git clone `.
-- Install Python3 with `sudo apt-get update` and `sudo apt-get install python3`.
+- Install Python3 with `sudo apt update` and `sudo apt install python3`.
 - Install pip with `sudo apt install python3-pip -y`. 
 - Use `pip install -r requirements.txt`, to download the associated libraries. *Numpy*, *matplotlib*, *pandas* and *torch* will be used.
 
@@ -75,7 +75,14 @@ Use cases of the following functions are included on the three available demo fi
 ## Neuron models
 ### Leaky Integrate & Fire
 
-The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking.
+The Leaky Integrate & Fire neuron model is one of the simplest yet powerful neuron models for SNNs. According to this model, neuron membranes behave as capacitors in parallel with  resistors. This voltage sharply increases when a spike is received, and it experiences an exponential with a $\beta$ decay. Usually, only if multiple current spikes are received over a short period of time, the membrane voltage will reach the established threshold. This is the behavior that characterizes integrator neurons with regular spiking. [This tutorials](https://snntorch.readthedocs.io/en/latest/tutorials/tutorial_3.html) providesç an excellent overview of the way the model's equations are derived.
+
+The first term handles the decay that neuron voltage exhibits over time, the second one adds the weighted  input $WX$ and the last one handles the reset, which will subtract the $U_{thr}$ if a spike is detected. 
+
+$$U[t+1] = \betaU[t] + WX[t+1] - S[t]U_{thr}$$
+
+$$\text{if} \\; U[t] > U_{thr} \\;\\; S[t] = 1  \\;\\;\\;\\; \text{else} \\;\\;\\; S[t] = 0$$ 
+
 
 As an example, the following neuron receives spikes at the steps 10, 40, 50 and 60. Since they only last for a single timestep, they do not increase the membrane voltage enough to produce a spike. However, as you can see with the last input, multiple consecutive spikes are capable of making the neuron fire because its capacitor would not have enough time to discharge. This is the reason a spike is produced at the 60th step.
 
@@ -120,7 +127,7 @@ $$a_1 = \frac{k}{C}\\;\\;\\; a_2 = -\frac{k}{C}(v_r+v_t)\\;\\;\\; a_3 = -\frac{1
 
 $$b_1 = ab\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = -abv_r$$
 
-As an example, the following neuron receives impulses with increased durations. The impulses start at the time steps 200, 400 and 600. The first two ones are not long nor high enough to elicit spikes. However, the last one is long enough to reach the threshold.  
+As an example, the following neuron receives impulses with increased durations. The impulses start at the time steps 200, 400 and 600. The first two ones are not long nor high enough to elicit spikes. However, the last one is enough to reach the threshold.  
 
 
 <div align="center">
@@ -143,7 +150,9 @@ $$ \dot u = b_1v+b_2u+b_3  $$
 
 $$ \text{if} \\; v \le c_1 \\;\\;\\;\\; v \leftarrow c_2 \\;\\;\\;\\; u \leftarrow u + c_3$$
 
-$$a_1 = L_v\frac{k}{C}\\;\\;\\; a_2 = (2\text{min}_v - v_r - v_t)\frac{k}{C}\\;\\;\\; a_3 = \frac{L_u}{L_vC}\\;\\;\\; a_4 = \frac{1}{L_vC}\\;\\;\\; a_5= \frac{k}{C}(\text{min}^2_v - v_r\text{min}_v- v_t\text{min}_v + v_rv_t)-\frac{\text{min}_u}{C}$$
+$$a_1 = L_v\frac{k}{C}\\;\\;\\; a_2 = (2\text{min}_v - v_r - v_t)\frac{k}{C}\\;\\;\\; a_3 = \frac{L_u}{L_vC}\\;\\;\\; a_4 = \frac{1}{L_vC}\\;\\;\\;$$
+
+$$a_5= \frac{k}{C}(\text{min}^2_v - v_r\text{min}_v- v_t\text{min}_v + v_rv_t)-\frac{\text{min}_u}{C}$$
 
 $$b_1 = ab\frac{L_v}{L_u}\\;\\;\\; b_2 = -a\\;\\;\\; b_3 = (ab\text{min}_v-abv_r - a\text{min}_u) \frac{1}{L_u}$$
 
