@@ -170,7 +170,7 @@ if(process_data_flag):
 num_inputs = len(variablePositions)
 num_hidden = 32
 num_outputs = len(resultEncoding)
-num_steps = 10
+num_steps = 30
 
 # Definitions to load the network to cuda
 batch_size = 5
@@ -196,10 +196,10 @@ if(train_LIF_flag):
   # Initialize network
   if(verbose_flag):
      print('Initializing LIF network')
-  net = NetLIF(num_inputs, num_hidden, num_outputs, batch_size, num_steps).to(device) # Load the network onto CUDA if available
+  net = NetLIFExtraLayer(num_inputs, num_hidden, num_outputs, batch_size, num_steps).to(device) # Load the network onto CUDA if available
 
   # Training variables
-  num_epochs = 100
+  num_epochs = 10
   loss_hist = []
   test_loss_hist = []
   counter = 0
@@ -295,7 +295,7 @@ if(test_Izhi_flag):
 
   # Define new network
   num_steps = 30
-  net = NetIzhi(num_inputs, num_hidden, num_outputs, batch_size, num_steps).to(device) # Load the network onto CUDA if available
+  net = NetIzhiExtraLayer(num_inputs, num_hidden, num_outputs, batch_size, num_steps).to(device) # Load the network onto CUDA if available
   
   if(verbose_flag):
      print('Loading network: ', networkFile)
