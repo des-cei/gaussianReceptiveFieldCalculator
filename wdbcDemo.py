@@ -199,7 +199,7 @@ if(train_LIF_flag):
   net = NetLIFExtraLayer(num_inputs, num_hidden, num_outputs, batch_size, num_steps).to(device) # Load the network onto CUDA if available
 
   # Training variables
-  num_epochs = 10
+  num_epochs = 1
   loss_hist = []
   test_loss_hist = []
   counter = 0
@@ -242,6 +242,12 @@ if(train_LIF_flag):
             counter += 1
             if(counter % 100 == 0):  
               print(f"Train set loss: {loss_val.item()}")
+  plt.plot(np.array(loss_hist), '#9c0063ff')
+  for i in range(len(loss_hist)-5):
+     loss_hist[i] = (loss_hist[i] + loss_hist[i+1] + loss_hist[i+2] + loss_hist[i+3] + loss_hist[i+4]) / 5
+  plt.ylabel('Cross Entroy Loss')
+  plt.xlabel('Training iteration')
+  plt.savefig('loss_evolution.pdf')
 
   if(verbose_flag):
     print('Starting LIF network evaluation')
