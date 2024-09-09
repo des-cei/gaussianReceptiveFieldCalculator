@@ -190,7 +190,7 @@ if(process_data_flag):
 
 # Network Architecture
 num_inputs = len(variablePositions)
-num_hidden = 64
+num_hidden = 32
 num_outputs = len(resultEncoding)
 num_steps = 30
 
